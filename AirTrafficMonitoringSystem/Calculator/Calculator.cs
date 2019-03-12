@@ -55,21 +55,17 @@ namespace AirTrafficMonitoringSystem.Calculator
                 {
                     return 270.0;
                 }
-                else
-                {
-                    throw new PlaneNotMovingExeption();
-                }
             }
 
             double Offset = CalculateOffset(deltaX, deltaY);
 
 
-            return Offset + Math.Atan(deltaX / deltaY);
+            return Offset + (Math.Atan(deltaX / deltaY) * 180/Math.PI);
         }
 
         public static bool AreColliding(int deltaX, int deltaY)
         {
-            return (GetDistance(deltaX, deltaY) > 5000);
+            return (GetDistance(deltaX, deltaY) < 5000);
         }
 
         private static double CalculateOffset(int deltaX, int deltaY)

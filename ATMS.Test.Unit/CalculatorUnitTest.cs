@@ -21,7 +21,7 @@ namespace ATMS.Test.Unit
             DateTime first = DateTime.ParseExact(TimeOffset + time1, format, CultureInfo.InvariantCulture);
             DateTime second = DateTime.ParseExact(TimeOffset + time2, format, CultureInfo.InvariantCulture);
 
-            double time = (first - second).TotalSeconds;
+            double time = (second - first).TotalSeconds;
             Assert.That(Calculator.GetCurrentSpeed(deltaX, deltaY, time),
             Is.EqualTo(result).Within(4));
         }

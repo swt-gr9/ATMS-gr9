@@ -10,6 +10,5 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
     public interface ITransponderReceiverClient
     {
         event InformationReceivedHandler ItemArrivedReceived; 
-
     }
 }

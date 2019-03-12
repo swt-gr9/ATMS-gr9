@@ -14,7 +14,7 @@ namespace AirTrafficMonitoringSystem.Calculator
         /// <returns></returns>
         public static double GetCurrentSpeed(int deltaX, int deltaY, double time)
         {
-            return (double)GetDistance(deltaX, deltaY) / time;
+            return (double) GetDistance(deltaX, deltaY) / time;
         }
 
         private static double GetDistance(int x, int y)
@@ -57,13 +57,13 @@ namespace AirTrafficMonitoringSystem.Calculator
                 }
                 else
                 {
-                    throw  new PlaneNotMovingExeption();
+                    throw new PlaneNotMovingExeption();
                 }
             }
 
             double Offset = CalculateOffset(deltaX, deltaY);
 
-        
+
             return Offset + Math.Atan(deltaX / deltaY);
         }
 
@@ -96,13 +96,14 @@ namespace AirTrafficMonitoringSystem.Calculator
                     return 180.0;
                 }
             }
-    }
+        }
 
-    public class PlaneNotMovingExeption : System.Exception
-    {
-        public PlaneNotMovingExeption()
+        public class PlaneNotMovingExeption : System.Exception
         {
-           
+            public PlaneNotMovingExeption()
+            {
+
+            }
         }
     }
 }

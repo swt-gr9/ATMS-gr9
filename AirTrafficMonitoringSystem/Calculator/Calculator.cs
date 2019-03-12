@@ -72,45 +72,30 @@ namespace AirTrafficMonitoringSystem.Calculator
             return (GetDistance(deltaX, deltaY) > 5000);
         }
 
-        private double CalculateOffset(int deltaX, int deltaY)
+        private static double CalculateOffset(int deltaX, int deltaY)
         {
-            switch (deltaX)
+            if (deltaX > 0)
             {
-                case (deltaX > 0):
+                if (deltaY > 0)
                 {
-                    switch (deltaY)
-                    {
-                        case (deltaY > 0):
-                        {
-                            return 0.0;
-                        }
-                            break;
-                        case (deltaY < 0):
-                        {
-                            return 90.0;
-                        }
-                            break;
-                    }
+                    return 0.0;
                 }
-                    break;
-                case (deltaX < 0):
+                else
                 {
-                    switch (deltaY)
-                    {
-                        case (deltaY > 0):
-                        {
-                            return 270.0;
-                        }
-                            break;
-                        case (deltaY < 0):
-                        {
-                            return 180.0;
-                        }
-                            break;
-                    }
+                    return 90.0;
                 }
             }
-        }
+            else
+            {
+                if (deltaY > 0)
+                {
+                    return 270.0;
+                }
+                else
+                {
+                    return 180.0;
+                }
+            }
     }
 
     public class PlaneNotMovingExeption : System.Exception

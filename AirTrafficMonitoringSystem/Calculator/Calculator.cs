@@ -97,13 +97,13 @@ namespace AirTrafficMonitoringSystem.Calculator
                 }
             }
         }
-        
-    }
-    public class PlaneNotMovingExeption : System.Exception
-    {
-        public PlaneNotMovingExeption()
-        {
 
+        public class PlaneNotMovingExeption : System.Exception
+        {
+            public PlaneNotMovingExeption()
+            {
+
+            }
         }
     }
 }

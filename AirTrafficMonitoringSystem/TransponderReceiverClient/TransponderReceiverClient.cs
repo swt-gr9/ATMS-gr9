@@ -9,7 +9,8 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
     {
         private ITransponderReceiver receiver;
         private IDataFormatter _dataFormatter;
-        
+        public event InformationReceivedHandler InformationReceived;
+
         public TransponderReceiverClient(ITransponderReceiver receiver, IDataFormatter dataFormatter)
         {
             _dataFormatter = dataFormatter;
@@ -21,14 +22,14 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
 
         private void ReceiverOnTransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
-            
-
             List<Plane.Plane> tempPlanes = new List<Plane.Plane>();
+
             foreach (var data in e.TransponderData)
             {
                 tempPlanes.Add(_dataFormatter.FormatFromString(data));
             }
-            
+
+            if (InformationReceived != null) InformationReceived(this, tempPlanes);
         }
     }
 }

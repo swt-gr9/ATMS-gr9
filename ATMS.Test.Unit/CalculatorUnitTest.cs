@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Globalization;
-
+using AirTrafficMonitoringSystem.Plane;
 
 
 namespace ATMS.Test.Unit
@@ -34,6 +34,28 @@ namespace ATMS.Test.Unit
         public void TestHeading(int deltaX, int deltaY, double result)
         {
             Assert.That(Calculator.GetCurrentHeading(deltaX, deltaY), Is.EqualTo(result).Within(0.001));
+        }
+
+        [TestCase(0,0)]
+        public void TestHeadingThrowsException(int deltaX, int deltaY)
+        {
+            Assert.That(() => Calculator.GetCurrentHeading(deltaX, deltaY), Throws.TypeOf<Calculator.PlaneNotMovingExeption>());
+        }
+
+       [TestCase(200, 500, 100, 400, true)]
+       [TestCase(0, 0, 1000, 10000, false)]
+        public void TestColliding(int xpos1, int ypos1, int xpos2, int ypos2, bool result)
+        {
+            Plane first = new Plane();
+            first.XPosition = xpos1;
+            first.YPosition = ypos1;
+
+            Plane second = new Plane();
+            second.XPosition = xpos2;
+            second.YPosition = ypos2;
+
+            Assert.That(Calculator.AreColliding(first.XPosition - second.XPosition, first.YPosition - second.YPosition),
+                Is.EqualTo(result));
         }
     }
 }

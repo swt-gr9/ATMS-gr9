@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using System;
+using System.Globalization;
 
 
+/*
 namespace ATMS.Test.Unit
+{
+    
+   
+
+    [TestFixture]
+    class DataFormatterTest
     {
-        [TestFixture]
-        class DataFormatterTest
+        
+
+        [TestCase("ATR423;39045;12932;14000;20151006213456789")]
+        public void testFormatString(string streng)
         {
-            [TestCase]
-            public void TestCurrentSpeed(int deltaX, int deltaY, double time, double result)
-            {
 
-            }
         }
-    
+            Assert.That
+                Is.EqualTo(result).Within(4));
+                
     }
-
-
     
+    
+}
+*/

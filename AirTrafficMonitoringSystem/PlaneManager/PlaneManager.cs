@@ -58,6 +58,16 @@ namespace AirTrafficMonitoringSystem.PlaneManager
 
         private void CalculateNewData(int index)
         {
+            Plane.Plane p1 = CurrentPlanes[index].Old;
+            Plane.Plane p2 = CurrentPlanes[index].New;
+            int deltaX = p2.XPosition - p1.XPosition;
+            int deltaY = p2.YPosition - p2.YPosition;
+            double time = (p2.TimeStamp - p1.TimeStamp).TotalSeconds;
+
+
+            CurrentPlanes[index].New.Heading = Calculator.Calculator.GetCurrentHeading(deltaX, deltaY);
+
+            CurrentPlanes[index].New.HorizontalSpeed = Calculator.Calculator.GetCurrentSpeed(deltaX, deltaX, time);
             
         }
 

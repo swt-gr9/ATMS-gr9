@@ -57,6 +57,7 @@
     <Compile Include="PlaneManager\PlaneManager.cs" />
     <Compile Include="Plane\Plane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransponderReceiverClient\FakeTransponderRC.cs" />
     <Compile Include="TransponderReceiverClient\ITransponderReceiverClient.cs" />
     <Compile Include="TransponderReceiverClient\TransponderReceiverClient.cs" />
   </ItemGroup>

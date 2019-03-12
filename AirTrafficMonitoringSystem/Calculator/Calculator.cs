@@ -61,11 +61,10 @@ namespace AirTrafficMonitoringSystem.Calculator
                 }
             }
 
-            double Offset = 0;
+            double Offset = CalculateOffset(deltaX, deltaY);
 
-            
-
-            return Math.Atan(deltaX / deltaY);
+        
+            return Offset + Math.Atan(deltaX / deltaY);
         }
 
         public static bool AreColliding(int deltaX, int deltaY)
@@ -73,11 +72,43 @@ namespace AirTrafficMonitoringSystem.Calculator
             return (GetDistance(deltaX, deltaY) > 5000);
         }
 
-        private double CalculateOffset(int deltaX, deltaY)
+        private double CalculateOffset(int deltaX, int deltaY)
         {
             switch (deltaX)
             {
-                
+                case (deltaX > 0):
+                {
+                    switch (deltaY)
+                    {
+                        case (deltaY > 0):
+                        {
+                            return 0.0;
+                        }
+                            break;
+                        case (deltaY < 0):
+                        {
+                            return 90.0;
+                        }
+                            break;
+                    }
+                }
+                    break;
+                case (deltaX < 0):
+                {
+                    switch (deltaY)
+                    {
+                        case (deltaY > 0):
+                        {
+                            return 270.0;
+                        }
+                            break;
+                        case (deltaY < 0):
+                        {
+                            return 180.0;
+                        }
+                            break;
+                    }
+                }
             }
         }
     }

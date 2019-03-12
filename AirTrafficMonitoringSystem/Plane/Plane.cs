@@ -1,4 +1,6 @@
-﻿namespace AirTrafficMonitoringSystem.Plane
+﻿using System;
+
+namespace AirTrafficMonitoringSystem.Plane
 {
     public struct Plane
     {
@@ -8,5 +10,6 @@
         public int Altitude { get; set; }
         public double HorizontalSpeed { get; set; }
         public int Heading { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 }

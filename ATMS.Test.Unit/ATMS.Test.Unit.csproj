@@ -54,6 +54,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AirTrafficMonitoringSystem\AirTrafficMonitoringSystem.csproj">
+      <Project>{200a5a45-808b-416d-b8d1-bb5269cee756}</Project>
+      <Name>AirTrafficMonitoringSystem</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

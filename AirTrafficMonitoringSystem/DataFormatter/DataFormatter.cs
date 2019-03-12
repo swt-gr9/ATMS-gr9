@@ -18,9 +18,9 @@ namespace AirTrafficMonitoringSystem.DataFormatter
             String[] planeInfoSplit = planeinfo.Split(';');
 
             planeicus.ID = planeInfoSplit[0];
-            planeicus.XPosition = Convert.ToInt16(planeInfoSplit[1]);
-            planeicus.YPosition = Convert.ToInt16(planeInfoSplit[2]);
-            planeicus.Altitude = Convert.ToInt16(planeInfoSplit[3]);
+            planeicus.XPosition = Convert.ToInt32(planeInfoSplit[1]);
+            planeicus.YPosition = Convert.ToInt32(planeInfoSplit[2]);
+            planeicus.Altitude = Convert.ToInt32(planeInfoSplit[3]);
             string format = "yyyyMMddHHmmssfff";
 
             planeicus.TimeStamp = DateTime.ParseExact(planeInfoSplit[4], format, CultureInfo.InvariantCulture);

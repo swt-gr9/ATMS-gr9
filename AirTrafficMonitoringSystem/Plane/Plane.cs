@@ -2,7 +2,7 @@
 
 namespace AirTrafficMonitoringSystem.Plane
 {
-    public struct Plane
+    public class Plane
     {
         public string ID { get; set; }
         public int XPosition { get; set; }
@@ -11,5 +11,15 @@ namespace AirTrafficMonitoringSystem.Plane
         public double HorizontalSpeed { get; set; }
         public int Heading { get; set; }
         public DateTime TimeStamp { get; set; }
+
+        public static bool operator ==(Plane p1, Plane p2)
+        {
+            return p1.ID == p2.ID;
+        }
+
+        public static bool operator !=(Plane p1, Plane p2)
+        {
+            return p1.ID != p2.ID;
+        }
     }
 }

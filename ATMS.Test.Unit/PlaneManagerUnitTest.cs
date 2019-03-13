@@ -105,7 +105,7 @@ namespace ATMS.Test.Unit
 
             Assert.That(OldPlanes != pl, Is.True);
         }
-
+        
         [Test]
         public void TestUpdatePlanes()
         {

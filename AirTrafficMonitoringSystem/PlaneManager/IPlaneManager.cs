@@ -11,6 +11,16 @@ namespace AirTrafficMonitoringSystem.PlaneManager
     {
         public Plane.Plane New { get; set; }
         public Plane.Plane Old { get; set; }
+
+        public static bool operator ==(Planes p1, Planes p2)
+        {
+            return p1.New == p2.New;
+        }
+
+        public static bool operator !=(Planes p1, Planes p2)
+        {
+            return p1.New != p2.New;
+        }
     }
 
     public delegate void PlaneUpdate(object sender, PlaneUpdateEvent e);

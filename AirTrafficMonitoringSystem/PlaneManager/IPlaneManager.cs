@@ -19,9 +19,8 @@ namespace AirTrafficMonitoringSystem.PlaneManager
         public List<Plane.Plane> NewPlanes { get; set; } = new List<Plane.Plane>();
         public List<Plane.Plane> UpdatedPlanes { get; set; } = new List<Plane.Plane>();
     }
-    interface IPlaneManager
+    public interface IPlaneManager
     {
-        void AddPlane(object sender, List<Plane.Plane> e);
         event PlaneUpdate PlaneNotify;
     }
 }

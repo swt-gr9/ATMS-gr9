@@ -59,7 +59,6 @@ namespace ATMS.Test.Unit
         [TestCase("XYZ987;25059;75654;4000;20151006213456789")]
         public void ReceiverOnTransponderDataReady_CreateEvent_InformationReceivedNumberOfEventsEqual1(string input)
         {
-            
             List<string> testData = new List<string>();
             testData.Add(input);
 
@@ -67,6 +66,17 @@ namespace ATMS.Test.Unit
                 += Raise.EventWith(this, new RawTransponderDataEventArgs(testData));
 
             Assert.AreEqual(1,_numberOfEvents);
+        }
+
+        [TestCase("ATR423;39045;12932;14000;20151006213456789")]
+        [TestCase("BCD123;10005;85890;12000;20151006213456789")]
+        [TestCase("XYZ987;25059;75654;4000;20151006213456789")]
+        public void ReceiverOnTransponderDataReady_CreateEvent_InformationReceivedNumberOfEventsEqual0(string input)
+        {
+            List<string> testData = new List<string>();
+            testData.Add(input);
+
+            Assert.AreEqual(0, _numberOfEvents);
         }
     }
 }

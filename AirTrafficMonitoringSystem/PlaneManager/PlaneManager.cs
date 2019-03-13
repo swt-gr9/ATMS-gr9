@@ -13,6 +13,7 @@ namespace AirTrafficMonitoringSystem.PlaneManager
     public class PlaneManager : IPlaneManager
     {
         private List<Planes> CurrentPlanes;
+        private List<string> IDTracker;
         private PlaneUpdateEvent Event;
         private ITransponderReceiverClient Client;
 
@@ -21,22 +22,37 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             Client = _Client;
             Client.ItemArrivedReceived += AddPlane;
             CurrentPlanes = new List<Planes>();
+            IDTracker = new List<string>();
         }
         private void AddPlane(object sender, PlaneDetectedEvent e)
         {
             Event = new PlaneUpdateEvent();
             foreach (var plane in e.planes)
             {
-                if (CurrentPlanes.Contains(new Planes{New = plane}))
+
+                if (Calculator.Calculator.IsInsideAirSpace(plane.XPosition, plane.YPosition))
                 {
-                    UpdateExistingPlane(plane);
-                    Event.UpdatedPlanes.Add(plane);
+                    if (IDTracker.Contains(plane.ID))
+                    {
+                        UpdateExistingPlane(plane);
+                        Event.UpdatedPlanes.Add(plane);
+                    }
+                    else
+                    {
+                        IDTracker.Add(plane.ID);
+                        AddNewPlane(plane);
+                        Event.NewPlanes.Add(plane);
+                    }
                 }
                 else
                 {
-                    AddNewPlane(plane);
-                    Event.NewPlanes.Add(plane);
+                    if (IDTracker.Contains(plane.ID))
+                    {
+                        IDTracker.Remove(plane.ID);
+                        CurrentPlanes.Remove(CurrentPlanes.First(p => p.New.ID == plane.ID));
+                    }
                 }
+
             }
             PlaneNotify?.Invoke(this, Event);
         }
@@ -63,8 +79,8 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             Plane.Plane p1 = CurrentPlanes[index].Old;
             Plane.Plane p2 = CurrentPlanes[index].New;
             int deltaX = p2.XPosition - p1.XPosition;
-            int deltaY = p2.YPosition - p2.YPosition;
-            double time = (p2.TimeStamp - p1.TimeStamp).TotalSeconds;
+            int deltaY = p2.YPosition - p1.YPosition;
+            double time = (p2.TimeStamp - p1.TimeStamp).TotalMilliseconds;
 
 
             CurrentPlanes[index].New.Heading = Calculator.Calculator.GetCurrentHeading(deltaX, deltaY);

@@ -59,7 +59,7 @@ namespace ATMS.Test.Unit
                 Altitude = 2000,
                 ID = "FD200",
                 TimeStamp = Parse("20191205121105200"),
-                XPosition = 5000,
+                XPosition = 16000,
                 YPosition = 20000
             });
             pl.Add(new Plane
@@ -114,15 +114,15 @@ namespace ATMS.Test.Unit
                 (this, new PlaneDetectedEvent {planes = pl});
 
             List<Plane> pl2 = new List<Plane>();
-            pl.Add(new Plane
+            pl2.Add(new Plane
             {
                 Altitude = 2000,
                 ID = "FD200",
-                TimeStamp = Parse("20191205121106200"),
-                XPosition = 7000,
+                TimeStamp = Parse("20191205121106723"),
+                XPosition = 16000,
                 YPosition = 18000
             });
-            pl.Add(new Plane
+            pl2.Add(new Plane
             {
                 Altitude = 10000,
                 ID = "FL100",
@@ -135,7 +135,7 @@ namespace ATMS.Test.Unit
             tr.ItemArrivedReceived += Raise.Event<InformationReceivedHandler>
                 (this, new PlaneDetectedEvent {planes = pl2});
 
-            Assert.That(OldPlanes[0], Is.EqualTo(pl[0]));
+            Assert.That(OldPlanes[0], Is.EqualTo(pl2[0]));
         }
 
         private void EventHandler(object sender, PlaneUpdateEvent e)

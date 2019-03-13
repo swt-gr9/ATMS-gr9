@@ -59,6 +59,7 @@
     <Compile Include="TransponderReceiverClient\TransponderReceiverClient.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DenTommeMappe\" />
     <Folder Include="Display\" />
     <Folder Include="PlaneManager\" />
   </ItemGroup>

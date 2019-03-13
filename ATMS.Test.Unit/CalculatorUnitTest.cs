@@ -20,12 +20,13 @@ namespace ATMS.Test.Unit
         [TestCase(-20, -10, "02000", "02100", 223.6068)]
         public void TestCurrentSpeed(int deltaX, int deltaY, string time1, string time2, double result)
         {
+            
             DateTime first = DateTime.ParseExact(TimeOffset + time1, format, CultureInfo.InvariantCulture);
             DateTime second = DateTime.ParseExact(TimeOffset + time2, format, CultureInfo.InvariantCulture);
 
             double time = (second - first).TotalSeconds;
-            Assert.That(Calculator.GetCurrentSpeed(deltaX, deltaY, time),
-            Is.EqualTo(result).Within(0.001));
+            Plane p = new Plane {HorizontalSpeed = Calculator.GetCurrentSpeed(deltaX, deltaY, time)};
+            Assert.That(p.HorizontalSpeed, Is.EqualTo(result).Within(0.001));
         }
 
         [TestCase(1,1,45.0)]
@@ -38,7 +39,11 @@ namespace ATMS.Test.Unit
         [TestCase(-1, 1, 315)]
         public void TestHeading(int deltaX, int deltaY, double result)
         {
-            Assert.That(Calculator.GetCurrentHeading(deltaX, deltaY), Is.EqualTo(result).Within(0.001));
+            Plane calcPlane = new Plane {XPosition = deltaX, YPosition = deltaY};
+
+            calcPlane.Heading = Calculator.GetCurrentHeading(calcPlane.XPosition, calcPlane.YPosition);
+
+            Assert.That(calcPlane.Heading, Is.EqualTo(result).Within(0.001));
         }
 
         [TestCase(0,0)]

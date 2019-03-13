@@ -18,6 +18,29 @@ namespace ATMS.Test.Unit
     {
         private List<Plane> NewPlanes = new List<Plane>();
         private List<Plane> OldPlanes = new List<Plane>();
+
+
+        [Test]
+        public void QuickPlaneTest()
+        {
+            Plane p1 = new Plane
+            {
+                Altitude = 20000,
+                ID = "TEST"
+            };
+            Plane p2 = new Plane
+            {
+                Altitude = 10000,
+                ID = "TEST"
+            };
+
+            Assert.That(p1 == p2, Is.True);
+
+            p2.ID = "EST";
+
+            Assert.That(p1 != p2, Is.True);
+        }
+
         [Test]
         public void TestAddingNewPlanes()
         {

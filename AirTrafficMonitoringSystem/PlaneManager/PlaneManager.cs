@@ -10,7 +10,7 @@ using AirTrafficMonitoringSystem.TransponderReceiverClient;
 namespace AirTrafficMonitoringSystem.PlaneManager
 {
 
-    class PlaneManager : IPlaneManager
+    public class PlaneManager : IPlaneManager
     {
         private List<Planes> CurrentPlanes;
         private PlaneUpdateEvent Event;
@@ -22,12 +22,12 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             Client.ItemArrivedReceived += AddPlane;
             CurrentPlanes = new List<Planes>();
         }
-        public void AddPlane(object sender, List<Plane.Plane> e)
+        private void AddPlane(object sender, List<Plane.Plane> e)
         {
             Event = new PlaneUpdateEvent();
             foreach (var plane in e)
             {
-                if (CurrentPlanes.Exists(p => p.New.ID == plane.ID))
+                if (CurrentPlanes.Exists(p => p.New == plane))
                 {
                     UpdateExistingPlane(plane);
                     Event.UpdatedPlanes.Add(plane);
@@ -50,10 +50,12 @@ namespace AirTrafficMonitoringSystem.PlaneManager
 
         private void UpdateExistingPlane(Plane.Plane Update)
         {
-            int index = CurrentPlanes.FindIndex(p => p.New.ID == Update.ID);
+            int index = CurrentPlanes.FindIndex(p => p.New == Update);
             
             CurrentPlanes[index].Old = CurrentPlanes[index].New;
             CurrentPlanes[index].New = Update;
+
+            CalculateNewData(index);
         }
 
         private void CalculateNewData(int index)
@@ -70,9 +72,7 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             CurrentPlanes[index].New.HorizontalSpeed = Calculator.Calculator.GetCurrentSpeed(deltaX, deltaX, time);
             
         }
-
-       
-
+        
         public event PlaneUpdate PlaneNotify;
     }
 }

@@ -5,6 +5,7 @@ using TransponderReceiver;
 
 namespace AirTrafficMonitoringSystem.TransponderReceiverClient
 {
+   
     public class TransponderReceiverClient
     {
         private ITransponderReceiver receiver;
@@ -29,7 +30,7 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
                 tempPlanes.Add(_dataFormatter.FormatFromString(data));
             }
 
-            if (InformationReceived != null) InformationReceived(this, tempPlanes);
+            if (InformationReceived != null) InformationReceived(this, new PlaneDetectedEvent{planes = tempPlanes});
         }
     }
 }

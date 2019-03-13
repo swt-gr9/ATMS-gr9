@@ -31,6 +31,11 @@ namespace ATMS.Test.Unit
         [TestCase(1,1,45.0)]
         [TestCase(1,0, 90.0)]
         [TestCase(-1, -1, 225)]
+        [TestCase(0, -1, 180.0)]
+        [TestCase(0, 1, 0.0)]
+        [TestCase(-1, 0, 270)]
+        [TestCase(1, -1, 135)]
+        [TestCase(-1, 1, 315)]
         public void TestHeading(int deltaX, int deltaY, double result)
         {
             Assert.That(Calculator.GetCurrentHeading(deltaX, deltaY), Is.EqualTo(result).Within(0.001));

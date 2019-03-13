@@ -60,7 +60,7 @@ namespace AirTrafficMonitoringSystem.Calculator
             double Offset = CalculateOffset(deltaX, deltaY);
 
 
-            return Offset + (Math.Atan(deltaX / deltaY) * 180/Math.PI);
+            return Offset + (Math.Atan(Math.Abs(deltaX / deltaY)) * 180/Math.PI);
         }
 
         public static bool AreColliding(int deltaX, int deltaY)

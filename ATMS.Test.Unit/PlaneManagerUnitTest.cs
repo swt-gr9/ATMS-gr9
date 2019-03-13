@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AirTrafficMonitoringSystem.Plane;
 using AirTrafficMonitoringSystem.PlaneManager;
 using AirTrafficMonitoringSystem.TransponderReceiverClient;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace ATMS.Test.Unit
@@ -36,11 +37,10 @@ namespace ATMS.Test.Unit
                YPosition = 10000
            });
 
-           PlaneManager pm = new PlaneManager(new FakeTransponderRC(pl));
-           pm.PlaneNotify += EventHandler;
+           ITransponderReceiverClient fako = Substitute.For<ITransponderReceiverClient>();
            
-           
-           Assert.That(NewPlanes, Is.EqualTo(pl));
+           PlaneManager pm = new PlaneManager(fako);
+
         }
 
         private void EventHandler(object sender, PlaneUpdateEvent e)

@@ -22,10 +22,10 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             Client.ItemArrivedReceived += AddPlane;
             CurrentPlanes = new List<Planes>();
         }
-        private void AddPlane(object sender, List<Plane.Plane> e)
+        private void AddPlane(object sender, PlaneDetectedEvent e)
         {
             Event = new PlaneUpdateEvent();
-            foreach (var plane in e)
+            foreach (var plane in e.planes)
             {
                 if (CurrentPlanes.Exists(p => p.New == plane))
                 {

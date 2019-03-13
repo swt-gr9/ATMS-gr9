@@ -41,6 +41,7 @@ namespace ATMS.Test.Unit
             Assert.That(p1 != p2, Is.True);
         }
 
+        private int Called = 0;
         [Test]
         public void TestAddingNewPlanes()
         {
@@ -61,9 +62,16 @@ namespace ATMS.Test.Unit
            });
 
            ITransponderReceiverClient fako = Substitute.For<ITransponderReceiverClient>();
+
            
            PlaneManager pm = new PlaneManager(fako);
+           pm.PlaneNotify += EventHandler;
 
+           fako.ItemArrivedReceived += Raise.Event<InformationReceivedHandler>
+               (this, new PlaneDetectedEvent { planes = pl });
+
+           
+           Assert.That(NewPlanes, Is.EqualTo(pl));
         }
 
         private void EventHandler(object sender, PlaneUpdateEvent e)

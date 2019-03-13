@@ -3,6 +3,7 @@ using AirTrafficMonitoringSystem.Plane;
 
 namespace AirTrafficMonitoringSystem.Calculator
 {
+  
     public static class Calculator
     {
         /// <summary>

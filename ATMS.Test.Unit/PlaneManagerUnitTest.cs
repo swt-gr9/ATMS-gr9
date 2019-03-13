@@ -138,6 +138,30 @@ namespace ATMS.Test.Unit
             Assert.That(OldPlanes[0], Is.EqualTo(pl2[0]));
         }
 
+        
+        [Test]
+        public void TestPlaneRemoveOutOfAirSpace()
+        {
+            List<Plane> pl = AddNewPlanes();
+            tr.ItemArrivedReceived += Raise.Event<InformationReceivedHandler>
+                (this, new PlaneDetectedEvent {planes = pl});
+
+            List<Plane> pl2 = new List<Plane>();
+            pl2.Add(new Plane
+            {
+                Altitude = 2000,
+                ID = "FD200",
+                XPosition = 4000,
+                YPosition = 2000
+            });
+
+            tr.ItemArrivedReceived += Raise.Event<InformationReceivedHandler>
+                (this, new PlaneDetectedEvent {planes = pl2});
+
+            Assert.That(!OldPlanes.Exists(p => p.ID == "FD200"), Is.True);
+
+        }
+
         private void EventHandler(object sender, PlaneUpdateEvent e)
         {
             NewPlanes = e.NewPlanes;
@@ -148,5 +172,6 @@ namespace ATMS.Test.Unit
         {
             return DateTime.ParseExact(time, "yyyyMMddHHmmssfff", CultureInfo.InvariantCulture);
         }
+        
     }
 }

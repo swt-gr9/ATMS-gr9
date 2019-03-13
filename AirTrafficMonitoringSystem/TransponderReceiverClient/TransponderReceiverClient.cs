@@ -24,7 +24,7 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
         private void ReceiverOnTransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
             List<Plane.Plane> tempPlanes = new List<Plane.Plane>();
-
+            
             foreach (var data in e.TransponderData)
             {
                 tempPlanes.Add(_dataFormatter.FormatFromString(data));

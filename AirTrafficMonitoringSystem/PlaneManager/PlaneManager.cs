@@ -27,7 +27,7 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             Event = new PlaneUpdateEvent();
             foreach (var plane in e.planes)
             {
-                if (CurrentPlanes.Exists(p => p.New == plane))
+                if (CurrentPlanes.Contains(new Planes{New = plane}))
                 {
                     UpdateExistingPlane(plane);
                     Event.UpdatedPlanes.Add(plane);

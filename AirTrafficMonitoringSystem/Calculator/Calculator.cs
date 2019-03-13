@@ -95,13 +95,5 @@ namespace AirTrafficMonitoringSystem.Calculator
         {
             return (xpos >= 10000 && xpos <= 90000) && (ypos >= 10000 && ypos <= 90000);
         }
-
-        public class PlaneNotMovingExeption : System.Exception
-        {
-            public PlaneNotMovingExeption()
-            {
-
-            }
-        }
     }
 }

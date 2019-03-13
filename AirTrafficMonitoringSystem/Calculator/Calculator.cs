@@ -13,9 +13,9 @@ namespace AirTrafficMonitoringSystem.Calculator
         /// <param name="deltaY"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        public static double GetCurrentSpeed(int deltaX, int deltaY, double time)
+        public static double GetCurrentSpeed(int deltaX, int deltaY, double timeInmSec)
         {
-            return (double) GetDistance(deltaX, deltaY) / time;
+            return (double) GetDistance(deltaX, deltaY) / (timeInmSec/1000);
         }
 
         private static double GetDistance(int x, int y)
@@ -40,10 +40,6 @@ namespace AirTrafficMonitoringSystem.Calculator
                 else if (deltaY < 0)
                 {
                     return 180.0;
-                }
-                else
-                {
-                    throw new PlaneNotMovingExeption();
                 }
             }
             else if (deltaY == 0)
@@ -93,6 +89,11 @@ namespace AirTrafficMonitoringSystem.Calculator
                     return 180.0;
                 }
             }
+        }
+
+        public static bool IsInsideAirSpace(int xpos, int ypos)
+        {
+            return (xpos >= 10000 && xpos <= 90000) && (ypos >= 10000 && ypos <= 90000);
         }
 
         public class PlaneNotMovingExeption : System.Exception

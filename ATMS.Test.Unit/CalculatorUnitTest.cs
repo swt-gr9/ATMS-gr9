@@ -24,7 +24,7 @@ namespace ATMS.Test.Unit
             DateTime first = DateTime.ParseExact(TimeOffset + time1, format, CultureInfo.InvariantCulture);
             DateTime second = DateTime.ParseExact(TimeOffset + time2, format, CultureInfo.InvariantCulture);
 
-            double time = (second - first).TotalSeconds;
+            double time = (second - first).TotalMilliseconds;
             Plane p = new Plane {HorizontalSpeed = Calculator.GetCurrentSpeed(deltaX, deltaY, time)};
             Assert.That(p.HorizontalSpeed, Is.EqualTo(result).Within(0.001));
         }
@@ -46,12 +46,6 @@ namespace ATMS.Test.Unit
             Assert.That(calcPlane.Heading, Is.EqualTo(result).Within(0.001));
         }
 
-        [TestCase(0,0)]
-        public void TestHeadingThrowsException(int deltaX, int deltaY)
-        {
-            Assert.That(() => Calculator.GetCurrentHeading(deltaX, deltaY), Throws.TypeOf<Calculator.PlaneNotMovingExeption>());
-        }
-
        [TestCase(200, 500, 100, 400, true)]
        [TestCase(0, 0, 1000, 10000, false)]
         public void TestColliding(int xpos1, int ypos1, int xpos2, int ypos2, bool result)
@@ -66,6 +60,16 @@ namespace ATMS.Test.Unit
 
             Assert.That(Calculator.AreColliding(first.XPosition - second.XPosition, first.YPosition - second.YPosition),
                 Is.EqualTo(result));
+        }
+
+        [TestCase(5000, 20000, false)]
+        [TestCase(13000, 12000, true)]
+        [TestCase(10000, 90000, true)]
+        public void TestIsInsideAirspace(int x, int y, bool result)
+        {
+            Plane p = new Plane {XPosition = x, YPosition = y};
+
+            Assert.That(Calculator.IsInsideAirSpace(p.XPosition, p.YPosition), Is.EqualTo(result));
         }
     }
 }

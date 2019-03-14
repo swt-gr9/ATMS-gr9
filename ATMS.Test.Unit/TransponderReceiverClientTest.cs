@@ -35,7 +35,7 @@ namespace ATMS.Test.Unit
 
             _uut = new TransponderReceiverClient(_transponderReceiver, _dataFormatter);
 
-            _uut.InformationReceived += (sender, args) => _numberOfEvents++;
+            _uut.ItemArrivedReceived += (sender, args) => _numberOfEvents++;
         }
 
         

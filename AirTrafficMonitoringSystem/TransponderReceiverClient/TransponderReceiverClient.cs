@@ -6,12 +6,11 @@ using TransponderReceiver;
 namespace AirTrafficMonitoringSystem.TransponderReceiverClient
 {
    
-    public class TransponderReceiverClient
+    public class TransponderReceiverClient : ITransponderReceiverClient
     {
         private ITransponderReceiver receiver;
         private IDataFormatter _dataFormatter;
-        public event InformationReceivedHandler InformationReceived;
-
+        public event InformationReceivedHandler ItemArrivedReceived;
         public TransponderReceiverClient(ITransponderReceiver receiver, IDataFormatter dataFormatter)
         {
             _dataFormatter = dataFormatter;
@@ -28,9 +27,12 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
             foreach (var data in e.TransponderData)
             {
                 tempPlanes.Add(_dataFormatter.FormatFromString(data));
+                Console.WriteLine(data.ToString());
             }
 
-            if (InformationReceived != null) InformationReceived(this, new PlaneDetectedEvent{planes = tempPlanes});
+            if (ItemArrivedReceived != null) ItemArrivedReceived(this, new PlaneDetectedEvent{planes = tempPlanes});
         }
+
+        
     }
 }

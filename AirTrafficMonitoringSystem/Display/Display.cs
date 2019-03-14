@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace AirTrafficMonitoringSystem.Display
 {
-    class Display 
+    public class Display 
     {
         
         private IPlaneManager planeManager;
 
-        Display(IPlaneManager _planeManager)
+        public Display(IPlaneManager _planeManager)
         {
             planeManager = _planeManager;
             planeManager.PlaneNotify += DisplayPlaneInfo;

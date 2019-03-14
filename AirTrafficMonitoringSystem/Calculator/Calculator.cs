@@ -53,6 +53,10 @@ namespace AirTrafficMonitoringSystem.Calculator
                     return 270.0;
                 }
             }
+            else if(deltaX == 0 && deltaY == 0)
+            {
+                throw new DivideByZeroException();
+            }
 
             double Offset = CalculateOffset(deltaX, deltaY);
 

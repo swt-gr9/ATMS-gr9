@@ -19,6 +19,7 @@ namespace ATMS.Test.Unit
     {
         private List<Plane> NewPlanes = new List<Plane>();
         private List<Plane> OldPlanes = new List<Plane>();
+        private List<Planes> CollidingPlanes = new List<Planes>();
         private PlaneManager uut;
         private ITransponderReceiverClient tr;
 
@@ -166,11 +167,35 @@ namespace ATMS.Test.Unit
         {
             NewPlanes = e.NewPlanes;
             OldPlanes = e.UpdatedPlanes;
+            CollidingPlanes = e.CollidingPlanes;
         }
 
         private DateTime Parse(string time)
         {
             return DateTime.ParseExact(time, "yyyyMMddHHmmssfff", CultureInfo.InvariantCulture);
+        }
+
+        [TestCase(10000, 15000, 17000, 60000, false)]
+        [TestCase(10000, 20000, 10000, 25000, false)]
+        [TestCase(20000, 15000, 22000, 15000, true)]
+        public void TestCollidingPlanes(int x1, int y1, int x2, int y2, bool result)
+        {
+            Plane p1 = new Plane {XPosition = x1, YPosition = y1, ID="E"};
+            Plane p2 = new Plane {XPosition = x2, YPosition = y2, ID="F"};
+
+
+            List<Plane> pl = new List<Plane>();
+            pl.Add(p1);
+            pl.Add(p2);
+
+            tr.ItemArrivedReceived += Raise.Event<InformationReceivedHandler>
+                (this, new PlaneDetectedEvent {planes = pl});
+
+
+            Planes tmPlanes = new Planes {New = p1, Old = p2};
+
+            Assert.That( CollidingPlanes.Count > 0, Is.EqualTo(result));
+
         }
         
     }

@@ -52,19 +52,28 @@ namespace ATMS.Test.Unit
             Assert.That(calcPlane.Heading, Is.EqualTo(result).Within(0.001));
         }
 
-       [TestCase(200, 500, 100, 400, true)]
-       [TestCase(0, 0, 1000, 10000, false)]
-        public void TestColliding(int xpos1, int ypos1, int xpos2, int ypos2, bool result)
+       [TestCase(200, 500, 100, 400, 1000, 800, true)]
+       [TestCase(0, 0, 1000, 10000, 20000, 15000, false)]
+       [TestCase(0, 0, 0, 4000, 1000, 20000, false)]
+       [TestCase(0, 0, 10000, 6000, 20000, 20000, false)]
+        public void TestColliding(int xpos1, int ypos1, int xpos2, int ypos2, int alt1, int alt2, bool result)
         {
             Plane first = new Plane();
             first.XPosition = xpos1;
             first.YPosition = ypos1;
+            first.Altitude = alt1;
 
             Plane second = new Plane();
             second.XPosition = xpos2;
             second.YPosition = ypos2;
+            second.Altitude = alt2;
 
-            Assert.That(Calculator.AreColliding(first.XPosition - second.XPosition, first.YPosition - second.YPosition),
+            int deltax = first.XPosition - second.XPosition;
+            int deltay = first.YPosition - second.YPosition;
+            int deltaAlt = first.Altitude - second.Altitude;
+
+
+            Assert.That(Calculator.AreColliding(deltax, deltay, deltaAlt),
                 Is.EqualTo(result));
         }
 

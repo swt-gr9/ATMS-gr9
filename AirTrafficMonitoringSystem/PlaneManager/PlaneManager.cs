@@ -54,7 +54,32 @@ namespace AirTrafficMonitoringSystem.PlaneManager
                 }
 
             }
+            
+
+            for (int i = 0; i < CurrentPlanes.Count; ++i)
+            {
+                for (int j = 0; j < CurrentPlanes.Count; ++j)
+                {
+                    if (i != j)
+                    {
+                        int deltaX = CurrentPlanes[i].New.XPosition - CurrentPlanes[j].New.XPosition;
+                        int deltaY = CurrentPlanes[i].New.YPosition - CurrentPlanes[j].New.YPosition;
+                        int deltaAlt = CurrentPlanes[i].New.Altitude - CurrentPlanes[j].New.Altitude;
+
+                        if (Calculator.Calculator.AreColliding(deltaX, deltaY, deltaAlt))
+                        {
+                            Planes comPlanes = new Planes {New = CurrentPlanes[i].New, Old = CurrentPlanes[j].New};
+                            if (!Event.CollidingPlanes.Contains(comPlanes))
+                            {
+                                Event.CollidingPlanes.Add(comPlanes);
+                            }
+                        }
+                    }
+                }
+            }
+
             PlaneNotify?.Invoke(this, Event);
+
         }
 
         private void AddNewPlane(Plane.Plane Add)

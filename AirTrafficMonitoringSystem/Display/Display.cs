@@ -31,6 +31,10 @@ namespace AirTrafficMonitoringSystem.Display
             {
                 printPlaneUpdate(plane);
             }
+
+            //Jeg har tilføjet en liste med CollidingPlanes - dem der støder sammen
+            //Der skal tilføjes en print metode til dem også
+            // - Troels
         }
 
         private void printNewPlane(Plane.Plane plane)

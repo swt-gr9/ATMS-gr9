@@ -17,8 +17,9 @@ namespace AirTrafficMonitoringSystem.PlaneManager
     public delegate void PlaneUpdate(object sender, PlaneUpdateEvent e);     
     public class PlaneUpdateEvent
     {
-        public List<Plane.Plane> NewPlanes { get; } = new List<Plane.Plane>();
-        public List<Plane.Plane> UpdatedPlanes { get; } = new List<Plane.Plane>();
+        public List<Plane.Plane> NewPlanes { get; set; } = new List<Plane.Plane>();
+        public List<Plane.Plane> UpdatedPlanes { get; set; } = new List<Plane.Plane>();
+        public List<Planes> CollidingPlanes { get; set; } = new List<Planes>();
     }
     public interface IPlaneManager
     {

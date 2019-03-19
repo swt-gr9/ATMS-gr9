@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirTrafficMonitoringSystem.cs" />
     <Compile Include="Calculator\Calculator.cs" />
     <Compile Include="DataFormatter\DataFormatter.cs" />
     <Compile Include="DataFormatter\IDataFormatter.cs" />

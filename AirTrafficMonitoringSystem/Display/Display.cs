@@ -21,7 +21,7 @@ namespace AirTrafficMonitoringSystem.Display
         private void DisplayPlaneInfo(object sender, PlaneUpdateEvent e)
         {
             Console.Clear();
-
+            
             foreach (var plane in e.NewPlanes)
             {
                 printNewPlane(plane);
@@ -32,9 +32,11 @@ namespace AirTrafficMonitoringSystem.Display
                 printPlaneUpdate(plane);
             }
 
-            //Jeg har tilføjet en liste med CollidingPlanes - dem der støder sammen
-            //Der skal tilføjes en print metode til dem også
-            // - Troels
+            foreach(var plane in e.CollidingPlanes)
+            {
+                Console.WriteLine($"{0} colliding with {1}", plane.New.ID, plane.Old.ID);
+            }
+
         }
 
         private void printNewPlane(Plane.Plane plane)

@@ -9,7 +9,7 @@ namespace AirTrafficMonitoringSystem.Display
 {
     public class Display 
     {
-        
+
         private IPlaneManager planeManager;
         private ILogger logger;
 

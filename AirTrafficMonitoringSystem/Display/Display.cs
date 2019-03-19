@@ -49,7 +49,7 @@ namespace AirTrafficMonitoringSystem.Display
 
             logger.LogText("New Plane info:");
             logger.LogText($"Plane ID: {_ID}");
-            logger.LogText($"Plane Alititude: {alt}");
+            logger.LogText($"Plane Altitude: {alt}");
             logger.LogText($"Plane Postion, x: {xPos}, y: {yPos}");
         }
 

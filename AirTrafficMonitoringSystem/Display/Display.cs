@@ -11,11 +11,13 @@ namespace AirTrafficMonitoringSystem.Display
     {
         
         private IPlaneManager planeManager;
+        private ILogger logger;
 
-        public Display(IPlaneManager _planeManager)
+        public Display(IPlaneManager _planeManager, ILogger _logger)
         {
             planeManager = _planeManager;
             planeManager.PlaneNotify += DisplayPlaneInfo;
+            logger = _logger;
         }
 
         private void DisplayPlaneInfo(object sender, PlaneUpdateEvent e)
@@ -36,35 +38,36 @@ namespace AirTrafficMonitoringSystem.Display
             {
                 Console.WriteLine($"{0} colliding with {1}", plane.New.ID, plane.Old.ID);
             }
-
         }
 
         private void printNewPlane(Plane.Plane plane)
         {
             int alt = plane.Altitude;
-            string ID = plane.ID;
+            string _ID = plane.ID;
             int xPos = plane.XPosition;
             int yPos = plane.YPosition;
-            Console.WriteLine("New Plane info:");
-            Console.WriteLine("Plane ID: {0}", ID);
-            Console.WriteLine("Plane Altitude: {0}", alt);
-            Console.WriteLine("Plane Position, x: {0} , y:{1}", xPos, yPos);
+
+            logger.LogText("New Plane info:");
+            logger.LogText($"Plane ID: {_ID}");
+            logger.LogText($"Plane Alititude: {alt}");
+            logger.LogText($"Plane Postion, x: {xPos}, y: {yPos}");
         }
 
         private void printPlaneUpdate(Plane.Plane plane)
         {
             int alt = plane.Altitude;
-            string ID = plane.ID;
+            string _ID = plane.ID;
             int xPos = plane.XPosition;
             int yPos = plane.YPosition;
             double heading = plane.Heading;
             double HorizontalSpeed = plane.HorizontalSpeed;
-            Console.WriteLine("Updating Plane info");
-            Console.WriteLine("Plane ID: {0}", ID);
-            Console.WriteLine("Plane Altitude: {0}", alt);
-            Console.WriteLine("Plane Position, x: {0} , y:{1}", xPos, yPos);
-            Console.WriteLine("Plane Heading: {0}", heading);
-            Console.WriteLine("Plane Horizontal speed: {0}", HorizontalSpeed);
+
+            logger.LogText("Updating Plane info");
+            logger.LogText($"Plane ID: {_ID}");
+            logger.LogText($"Plane Altitude: {alt}");
+            logger.LogText($"Plane Position, x: {xPos} , y:{yPos}");
+            logger.LogText($"Plane Heading: {heading}");
+            logger.LogText($"Plane Horizontal speed: {HorizontalSpeed}");
         }
     }
 }

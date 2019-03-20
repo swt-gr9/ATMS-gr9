@@ -15,12 +15,7 @@ namespace ATMS.Test.Unit
         private string format = "yyyyMMddHHmmssfff";
         private string TimeOffset = "201912051105";
 
-        [Test]
-        public void CalculatorThrowsExeption()
-        {
-            Assert.That(() => Calculator.GetCurrentHeading(1,0), Throws.TypeOf<DivideByZeroException>());
-        }
-
+      
         [TestCase(5, 5, "02100", "02500", 17.6777)]
         [TestCase(10, 15, "02000", "02500", 36.0555)]
         [TestCase(-20, -10, "02000", "02100", 223.6068)]

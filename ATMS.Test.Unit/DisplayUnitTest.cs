@@ -30,7 +30,7 @@ namespace ATMS.Test.Unit
         }
 
         [TestCase("FR19", "TM17")]
-        public void TestCollidingDisplay(string plane1, string plane2)
+        public void TestCollidingDisplay(string plane1, string plane2) 
         {
             List<Planes> testList = new List<Planes>();
 

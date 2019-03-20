@@ -50,7 +50,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirTrafficMonitoringSystem.cs" />
     <Compile Include="Calculator\Calculator.cs" />
     <Compile Include="CollisionLogger\CollisionLogger.cs" />
     <Compile Include="CollisionLogger\ICollisionLogger.cs" />

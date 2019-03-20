@@ -9,5 +9,6 @@ namespace AirTrafficMonitoringSystem.Display
     public interface ILogger
     {
         void LogText(string t);
+        void Clear();
     }
 }

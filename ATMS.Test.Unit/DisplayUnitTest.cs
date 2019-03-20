@@ -17,14 +17,14 @@ namespace ATMS.Test.Unit
     {
         Display uut;
         IPlaneManager pm;
-        StringLogger logger;
+        ILogger logger;
 
         [SetUp]
         public void Setup()
         {
 
-            pm = NSubstitute.Substitute.For<IPlaneManager>();
-            logger = new StringLogger();
+            pm = Substitute.For<IPlaneManager>();
+            logger = Substitute.For<ILogger>();
 
             uut = new Display(pm, logger);
         }
@@ -43,10 +43,9 @@ namespace ATMS.Test.Unit
 
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent {CollidingPlanes = testList });
 
-
-            Assert.That(logger.TestArray[0], Is.EqualTo($"{p1} colliding with {p2}"));
+            logger.Received(1).LogText($"{p1.ID} colliding with {p2.ID}");
         }
-
+      
         [TestCase("FJ20")]
         //[TestCase("JK60", 15000, 40000, 13000)]
         public void TestNewPlaneDisplayID(string planeID)
@@ -58,10 +57,12 @@ namespace ATMS.Test.Unit
             testList.Add(p1);
 
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent {NewPlanes = testList});
-            Assert.That(logger.TestArray[0], Is.EqualTo("New Plane info:"));
-            Assert.That(logger.TestArray[1], Is.EqualTo($"Plane ID: {p1.ID}"));
-        }
 
+            logger.Received(1).LogText("New Plane info:");
+            logger.Received(1).LogText($"Plane ID: {p1.ID}");
+            
+        }
+  /*
         [TestCase(14000)]
         public void TestNewPlaneDisplayAltitude(int alt)
         {
@@ -151,7 +152,7 @@ namespace ATMS.Test.Unit
 
 
 
-
+*/
 
     }
 }

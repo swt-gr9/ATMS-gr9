@@ -12,5 +12,10 @@ namespace AirTrafficMonitoringSystem.Display
         {
             Console.WriteLine(t);
         }
+
+        public void Clear()
+        {
+            Console.Clear();
+        }
     }
 }

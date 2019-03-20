@@ -57,7 +57,6 @@
     <Compile Include="Display\ConsoleLogger.cs" />
     <Compile Include="Display\Display.cs" />
     <Compile Include="Display\ILogger.cs" />
-    <Compile Include="Display\StringLogger.cs" />
     <Compile Include="PlaneManager\IPlaneManager.cs" />
     <Compile Include="PlaneManager\PlaneManager.cs" />
     <Compile Include="Plane\Plane.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="TransponderReceiverClient\TransponderReceiverClient.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CollisionLogger\" />
     <Folder Include="DenTommeMappe\" />
   </ItemGroup>
   <ItemGroup>

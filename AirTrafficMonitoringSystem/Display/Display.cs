@@ -22,7 +22,7 @@ namespace AirTrafficMonitoringSystem.Display
 
         private void DisplayPlaneInfo(object sender, PlaneUpdateEvent e)
         {
-            Console.Clear();
+            logger.Clear();
             
             foreach (var plane in e.NewPlanes)
             {
@@ -36,7 +36,7 @@ namespace AirTrafficMonitoringSystem.Display
 
             foreach(var plane in e.CollidingPlanes)
             {
-                Console.WriteLine($"{0} colliding with {1}", plane.New.ID, plane.Old.ID);
+                logger.LogText($"{plane.New.ID} colliding with {plane.Old.ID}");
             }
         }
 

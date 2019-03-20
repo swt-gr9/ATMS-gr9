@@ -31,29 +31,7 @@ namespace AirTrafficMonitoringSystem.Calculator
         /// <returns></returns>
         public static double GetCurrentHeading(int deltaX, int deltaY)
         {
-            if (deltaX == 0)
-            {
-                if (deltaY > 0)
-                {
-                    return 0.0;
-                }
-                else if (deltaY < 0)
-                {
-                    return 180.0;
-                }
-            }
-            else if (deltaY == 0)
-            {
-                if (deltaX > 0)
-                {
-                    return 90.0;
-                }
-                else if (deltaX < 0)
-                {
-                    return 270.0;
-                }
-            }
-            else if(deltaX == 0 && deltaY == 0)
+            if(deltaY == 0)
             {
                 throw new DivideByZeroException();
             }

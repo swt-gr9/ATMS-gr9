@@ -18,7 +18,7 @@ namespace ATMS.Test.Unit
         [Test]
         public void CalculatorThrowsExeption()
         {
-            Assert.That(() => Calculator.GetCurrentHeading(0,0), Throws.TypeOf<DivideByZeroException>());
+            Assert.That(() => Calculator.GetCurrentHeading(1,0), Throws.TypeOf<DivideByZeroException>());
         }
 
         [TestCase(5, 5, "02100", "02500", 17.6777)]
@@ -36,11 +36,8 @@ namespace ATMS.Test.Unit
         }
 
         [TestCase(1,1,45.0)]
-        [TestCase(1,0, 90.0)]
         [TestCase(-1, -1, 225)]
         [TestCase(0, -1, 180.0)]
-        [TestCase(0, 1, 0.0)]
-        [TestCase(-1, 0, 270)]
         [TestCase(1, -1, 135)]
         [TestCase(-1, 1, 315)]
         public void TestHeading(int deltaX, int deltaY, double result)

@@ -47,7 +47,6 @@ namespace ATMS.Test.Unit
         }
       
         [TestCase("FJ20")]
-        //[TestCase("JK60", 15000, 40000, 13000)]
         public void TestNewPlaneDisplayID(string planeID)
         {
             List<Plane> testList = new List<Plane>();
@@ -62,7 +61,7 @@ namespace ATMS.Test.Unit
             logger.Received(1).LogText($"Plane ID: {p1.ID}");
             
         }
-  /*
+  
         [TestCase(14000)]
         public void TestNewPlaneDisplayAltitude(int alt)
         {
@@ -72,7 +71,7 @@ namespace ATMS.Test.Unit
 
             testList.Add(p1);
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { NewPlanes = testList });
-            Assert.That(logger.TestArray[2], Is.EqualTo($"Plane Altitude: {p1.Altitude}"));
+            logger.Received(1).LogText($"Plane Altitude: {p1.Altitude}");
         }
 
         [TestCase(39045, 12950)]
@@ -84,11 +83,10 @@ namespace ATMS.Test.Unit
 
             testList.Add(p1);
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { NewPlanes = testList });
-            Assert.That(logger.TestArray[0], Is.EqualTo($"Plane Postion, x: {p1.XPosition}, y: {p1.YPosition}"));
+            logger.Received(1).LogText($"Plane Postion, x: {p1.XPosition}, y: {p1.YPosition}");
         }
 
         [TestCase("FJ20")]
-        //[TestCase("JK60", 15000, 40000, 13000)]
         public void TestUpdatedPlaneDisplayID(string planeID)
         {
             List<Plane> testList = new List<Plane>();
@@ -98,8 +96,8 @@ namespace ATMS.Test.Unit
             testList.Add(p1);
 
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { UpdatedPlanes = testList });
-            //Assert.That(logger.TestArray[0], Is.EqualTo("New Plane info:"));
-            Assert.That(logger.TestArray[0], Is.EqualTo($"Plane ID: {p1.ID}"));
+            logger.Received(1).LogText($"Plane ID: {p1.ID}");
+
         }
 
         [TestCase(13567)]
@@ -111,7 +109,8 @@ namespace ATMS.Test.Unit
 
             testList.Add(p1);
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { UpdatedPlanes = testList});
-            Assert.That(logger.TestArray[0], Is.EqualTo($"Plane Altitude: {p1.Altitude}"));
+            logger.Received(1).LogText($"Plane Altitude: { p1.Altitude}");
+            
         }
 
         [TestCase(40000, 13000)]
@@ -123,7 +122,7 @@ namespace ATMS.Test.Unit
 
             testList.Add(p1);
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { UpdatedPlanes = testList });
-            Assert.That(logger.TestArray[0], Is.EqualTo($"Plane Position, x: {p1.XPosition} , y:{p1.YPosition}"));
+            logger.Received(1).LogText($"Plane Position, x: {p1.XPosition} , y:{p1.YPosition}");
         }
 
         [TestCase(300.276)]
@@ -135,7 +134,7 @@ namespace ATMS.Test.Unit
 
             testList.Add(p1);
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { UpdatedPlanes = testList });
-            Assert.That(logger.TestArray[0], Is.EqualTo($"Plane Heading: {p1.Heading}"));
+            logger.Received(1).LogText($"Plane Heading: {p1.Heading}");
         }
 
         [TestCase(300.276)]
@@ -147,12 +146,7 @@ namespace ATMS.Test.Unit
 
             testList.Add(p1);
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { UpdatedPlanes = testList });
-            Assert.That(logger.TestArray[0], Is.EqualTo($"Plane Heading: {p1.HorizontalSpeed}"));
+            logger.Received(1).LogText($"Plane Horizontal speed: {p1.HorizontalSpeed}");
         }
-
-
-
-*/
-
     }
 }

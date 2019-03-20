@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using AirTrafficMonitoringSystem.CollisionLogger;
 using AirTrafficMonitoringSystem.TransponderReceiverClient;
 
 
@@ -16,10 +17,12 @@ namespace AirTrafficMonitoringSystem.PlaneManager
         private List<string> IDTracker;
         private PlaneUpdateEvent Event;
         private ITransponderReceiverClient Client;
+        private ICollisionLogger ColLog;
 
-        public PlaneManager(ITransponderReceiverClient _Client)
+        public PlaneManager(ITransponderReceiverClient _Client, ICollisionLogger log)
         {
             Client = _Client;
+            ColLog = log;
             Client.ItemArrivedReceived += AddPlane;
             CurrentPlanes = new List<Planes>();
             IDTracker = new List<string>();
@@ -72,6 +75,7 @@ namespace AirTrafficMonitoringSystem.PlaneManager
                             if (!Event.CollidingPlanes.Contains(comPlanes))
                             {
                                 Event.CollidingPlanes.Add(comPlanes);
+                                ColLog.LogPlanes(comPlanes);
                             }
                         }
                     }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficMonitoringSystem.CollisionLogger;
 using AirTrafficMonitoringSystem.Plane;
 using AirTrafficMonitoringSystem.PlaneManager;
 using AirTrafficMonitoringSystem.TransponderReceiverClient;
@@ -22,6 +24,16 @@ namespace ATMS.Test.Unit
         private List<Planes> CollidingPlanes = new List<Planes>();
         private PlaneManager uut;
         private ITransponderReceiverClient tr;
+        private ICollisionLogger log;
+        
+        [SetUp]
+        public void Setup()
+        {
+            tr = Substitute.For<ITransponderReceiverClient>();
+            log = Substitute.For<ICollisionLogger>();
+            uut = new PlaneManager(tr, log);
+            uut.PlaneNotify += EventHandler;
+        }
 
         [Test]
         public void QuickPlaneTest()
@@ -42,14 +54,6 @@ namespace ATMS.Test.Unit
             p2.ID = "EST";
 
             Assert.That(p1 != p2, Is.True);
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            tr = Substitute.For<ITransponderReceiverClient>();
-            uut = new PlaneManager(tr);
-            uut.PlaneNotify += EventHandler;
         }
 
         public List<Plane> AddNewPlanes()
@@ -199,4 +203,6 @@ namespace ATMS.Test.Unit
         }
         
     }
+
+
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficMonitoringSystem.CollisionLogger;
 using AirTrafficMonitoringSystem.DataFormatter;
 using AirTrafficMonitoringSystem.Display;
 using AirTrafficMonitoringSystem.PlaneManager;
@@ -21,6 +22,7 @@ namespace AirTrafficMonitoringSystem
         private IPlaneManager PlaneManager;
         private Display.Display Display;
         private ILogger Logger;
+        private ICollisionLogger ColLog;
 
         public AirTrafficMonitoringSystem()
         {
@@ -28,7 +30,8 @@ namespace AirTrafficMonitoringSystem
             TransponderReceiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
             DataFormatter = new DataFormatter.DataFormatter();
             TransponderReceiverClient = new TransponderReceiverClient.TransponderReceiverClient(TransponderReceiver,DataFormatter);
-            PlaneManager = new PlaneManager.PlaneManager(TransponderReceiverClient);
+            ColLog = new CollisionLogger.CollisionLogger();
+            PlaneManager = new PlaneManager.PlaneManager(TransponderReceiverClient, ColLog);
             Logger = new ConsoleLogger();
             Display = new Display.Display(PlaneManager,Logger);
         }

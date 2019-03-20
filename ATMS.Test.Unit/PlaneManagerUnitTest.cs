@@ -12,6 +12,7 @@ using AirTrafficMonitoringSystem.TransponderReceiverClient;
 using Microsoft.SqlServer.Server;
 using NSubstitute;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 
 namespace ATMS.Test.Unit
 {
@@ -30,7 +31,7 @@ namespace ATMS.Test.Unit
         public void Setup()
         {
             tr = Substitute.For<ITransponderReceiverClient>();
-            log = Substitute.For<ICollisionLogger>();
+            log = new CollisionLogger();//Substitute.For<ICollisionLogger>();
             uut = new PlaneManager(tr, log);
             uut.PlaneNotify += EventHandler;
         }
@@ -199,9 +200,35 @@ namespace ATMS.Test.Unit
             Planes tmPlanes = new Planes {New = p1, Old = p2};
 
             Assert.That( CollidingPlanes.Count > 0, Is.EqualTo(result));
+            
+        }
+
+        [Test]
+        public void TestCollisionLoggerWrites()
+        {
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\LogFile.txt",
+                string.Empty);
+
+            Plane p1 = new Plane { XPosition = 10000, YPosition = 23000, ID = "E" };
+            Plane p2 = new Plane { XPosition = 10000, YPosition = 20000, ID = "F" };
+
+            List<Plane> pl = new List<Plane>();
+            pl.Add(p1);
+            pl.Add(p2);
+
+            tr.ItemArrivedReceived += Raise.Event<InformationReceivedHandler>
+                (this, new PlaneDetectedEvent { planes = pl });
+
+            Planes combined = new Planes {New = p1, Old = p2};
+
+            string[] output =
+                File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\LogFile.txt");
+
+            string[] data = output[0].Split(';');
+
+            Assert.That(data[0]+data[1], Is.EqualTo("EF"));
 
         }
-        
     }
 
 

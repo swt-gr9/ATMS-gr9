@@ -25,15 +25,23 @@ namespace ATMS.Test.Unit
             Path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
+        private void ClearFile()
+        {
+            File.WriteAllText(Path + @"\LogFile.txt", string.Empty);
+        }
+
         [Test]
         public void TestFileCreation()
         {
             Assert.That(File.Exists(Path + @"\LogFile.txt"), Is.True);
         }
+        
 
         [TestCase("ID1", "ID2", "ID1ID2")]
+        [TestCase("Hej", "Goddag", "HejGoddag")]
         public void TestWritingToFile(string planeID1, string planeID2, string result)
         {
+            ClearFile();
             Plane p1 = new Plane {ID = planeID1, TimeStamp = DateTime.Now};
             Plane p2 = new Plane {ID = planeID2};
 
@@ -46,6 +54,27 @@ namespace ATMS.Test.Unit
             string[] IDs = outPut[0].Split(';');
 
             Assert.That(IDs[0] + IDs[1], Is.EqualTo(result));
+            
         }
+
+        [TestCase("ID1", "ID2")]
+        public void TestAddingSamePlanes(string planeID1, string planeID2)
+        {
+            ClearFile();
+            Plane p1 = new Plane { ID = planeID1, TimeStamp = DateTime.Now };
+            Plane p2 = new Plane { ID = planeID2 };
+
+            Planes combined = new Planes { New = p1, Old = p2 };
+
+            uut.LogPlanes(combined);
+            uut.LogPlanes(combined);
+            string[] outPut = File.ReadAllLines(Path + @"\LogFile.txt");
+
+            Assert.That(outPut.Length, Is.EqualTo(1));
+
+            
+        }
+
+
     }
 }

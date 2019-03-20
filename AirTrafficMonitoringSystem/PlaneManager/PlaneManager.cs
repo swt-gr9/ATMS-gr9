@@ -18,6 +18,7 @@ namespace AirTrafficMonitoringSystem.PlaneManager
         private PlaneUpdateEvent Event;
         private ITransponderReceiverClient Client;
         private ICollisionLogger ColLog;
+        private List<int> CollideTracker;
 
         public PlaneManager(ITransponderReceiverClient _Client, ICollisionLogger log)
         {
@@ -26,6 +27,7 @@ namespace AirTrafficMonitoringSystem.PlaneManager
             Client.ItemArrivedReceived += AddPlane;
             CurrentPlanes = new List<Planes>();
             IDTracker = new List<string>();
+            CollideTracker = new List<int>();
         }
         private void AddPlane(object sender, PlaneDetectedEvent e)
         {
@@ -72,9 +74,11 @@ namespace AirTrafficMonitoringSystem.PlaneManager
                         if (Calculator.Calculator.AreColliding(deltaX, deltaY, deltaAlt))
                         {
                             Planes comPlanes = new Planes {New = CurrentPlanes[i].New, Old = CurrentPlanes[j].New};
-                            if (!Event.CollidingPlanes.Contains(comPlanes))
+
+                            if (!CollideTracker.Contains(comPlanes.GetHashCode()))
                             {
                                 Event.CollidingPlanes.Add(comPlanes);
+                                CollideTracker.Add(comPlanes.GetHashCode());
                                 ColLog.LogPlanes(comPlanes);
                             }
                         }

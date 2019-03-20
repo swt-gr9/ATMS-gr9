@@ -30,13 +30,14 @@ namespace AirTrafficMonitoringSystem.CollisionLogger
         {
             if (!IsLogged(p))
             {
-                File.AppendAllText(Path,$"{p.New.ID};{p.Old.ID};{p.New.TimeStamp.ToString()}");
+                File.AppendAllText(Path,$"{p.New.ID};{p.Old.ID};{p.New.TimeStamp.ToString()}" + Environment.NewLine);
+                LoggedPlanes.Add(p);
             }
         }
 
         private bool IsLogged(Planes p)
         {
-            return LoggedPlanes.Exists(pl => (pl.New == p.New && pl.Old == p.Old));
+            return LoggedPlanes.Exists(pl => (pl.New == p.New && pl.Old == p.Old) || (pl.New == pl.Old && pl.Old == pl.New));
         }
     }
 }

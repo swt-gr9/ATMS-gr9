@@ -31,13 +31,10 @@ namespace AirTrafficMonitoringSystem.Calculator
         /// <returns></returns>
         public static double GetCurrentHeading(int deltaX, int deltaY)
         {
-            if(deltaY == 0)
-            {
-                throw new DivideByZeroException();
-            }
-
+         
             double Offset = CalculateOffset(deltaX, deltaY);
-
+            if (deltaY == 0)
+                return Offset;
 
             return Offset + (Math.Atan(Math.Abs(deltaX / deltaY)) * 180/Math.PI);
         }

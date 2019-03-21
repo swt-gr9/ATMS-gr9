@@ -58,10 +58,10 @@ namespace ATMS.Test.Unit
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { NewPlanes = testList });
 
             logger.Received(1).LogText("New Plane info:");
-            logger.Received(1).LogText("|      ID       |      Altitude      |      x-Position      |      y-Position      |");
-            logger.Received(1).LogText("___________________________________________________________________________________________________");
-            logger.Received(1).LogText($"|     {p1.ID}    |      {p1.Altitude}         |       {p1.XPosition}         |         {p1.YPosition}       |");
-            logger.Received(1).LogText("---------------------------------------------------------------------------------------------------");
+            logger.Received(1).LogText("|ID     |Altitude            |x-Position          |y-Position          |");
+            logger.Received(1).LogText("________________________________________________________________________");
+            logger.Received(1).LogText($"|{p1.ID,-7}|{p1.Altitude,-20}|{p1.XPosition,-20}|{p1.YPosition,-20}|");
+            logger.Received(1).LogText("------------------------------------------------------------------------");
 
         }
 
@@ -76,9 +76,10 @@ namespace ATMS.Test.Unit
 
             pm.PlaneNotify += Raise.Event<PlaneUpdate>(this, new PlaneUpdateEvent { UpdatedPlanes = testList });
             logger.Received(1).LogText("Updating Plane info:");
-            logger.Received(1).LogText("|      ID       |      Altitude      |      x-Position      |      y-Position      |      Heading      |      Horizontal Speed      |");
-            logger.Received(1).LogText($"|     {p1.ID}    |      {p1.Altitude}          |       {p1.XPosition}         |         {p1.YPosition}       |      {p1.Heading}    |      {p1.HorizontalSpeed}     |");
-            logger.Received(1).LogText("-------------------------------------------------------------------------------------------------------------------------------------------");
+            logger.Received(1).LogText("|ID     |Altitude            |x-Position          |y-Position          |Heading             |Horizontal Speed            |");
+            logger.Received(1).LogText("__________________________________________________________________________________________________________________________");
+            logger.Received(1).LogText($"|{p1.ID,-7}|{p1.Altitude,-20}|{p1.XPosition,-20}|{p1.YPosition,-20}|{p1.Heading,-20}|{p1.HorizontalSpeed,-28}|");
+            logger.Received(1).LogText("--------------------------------------------------------------------------------------------------------------------------");
 
         }
     }

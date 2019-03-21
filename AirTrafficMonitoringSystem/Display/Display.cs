@@ -47,15 +47,10 @@ namespace AirTrafficMonitoringSystem.Display
             int xPos = plane.XPosition;
             int yPos = plane.YPosition;
             logger.LogText("New Plane info:");
-            logger.LogText("|      ID       |      Altitude      |      x-Position      |      y-Position      |");
-            logger.LogText("___________________________________________________________________________________________________");
-            logger.LogText($"|     {_ID}    |      {alt}         |       {xPos}         |         {yPos}       |");
-            logger.LogText("---------------------------------------------------------------------------------------------------");
-
-            //logger.LogText("New Plane info:");
-            //logger.LogText($"Plane ID: {_ID}");
-            //logger.LogText($"Plane Altitude: {alt}");
-            //logger.LogText($"Plane Postion, x: {xPos}, y: {yPos}");
+            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |");
+            logger.LogText("________________________________________________________________________");
+            logger.LogText($"|{_ID, -7}|{alt,-20}|{xPos,-20}|{yPos,-20}|");
+            logger.LogText("------------------------------------------------------------------------");
         }
 
         private void printPlaneUpdate(Plane.Plane plane)
@@ -67,17 +62,11 @@ namespace AirTrafficMonitoringSystem.Display
             double heading = plane.Heading;
             double HorizontalSpeed = plane.HorizontalSpeed;
             logger.LogText("Updating Plane info:");
-            logger.LogText("|      ID       |      Altitude      |      x-Position      |      y-Position      |      Heading      |      Horizontal Speed      |");
-            logger.LogText("___________________________________________________________________________________________________________________________________________");
-            logger.LogText($"|     {_ID}    |      {alt}          |       {xPos}         |         {yPos}       |      {heading}    |      {HorizontalSpeed}     |");
-            logger.LogText("-------------------------------------------------------------------------------------------------------------------------------------------");
+            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |Heading             |Horizontal Speed            |");
+            logger.LogText("__________________________________________________________________________________________________________________________");
+            logger.LogText($"|{_ID, -7}|{alt, -20}|{xPos,-20}|{yPos,-20}|{heading,-20}|{HorizontalSpeed,-28}|");
+            logger.LogText("--------------------------------------------------------------------------------------------------------------------------");
 
-            //logger.LogText("Updating Plane info");
-            //logger.LogText($"Plane ID: {_ID}");
-            //logger.LogText($"Plane Altitude: {alt}");
-            //logger.LogText($"Plane Position, x: {xPos} , y:{yPos}");
-            //logger.LogText($"Plane Heading: {heading}");
-            //logger.LogText($"Plane Horizontal speed: {HorizontalSpeed}");
         }
     }
 }

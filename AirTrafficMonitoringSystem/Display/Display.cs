@@ -23,13 +23,18 @@ namespace AirTrafficMonitoringSystem.Display
         private void DisplayPlaneInfo(object sender, PlaneUpdateEvent e)
         {
             logger.Clear();
-            
+            logger.LogText("New Plane info:");
+            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |");
+            logger.LogText("________________________________________________________________________");
             foreach (var plane in e.NewPlanes)
             {
                 printNewPlane(plane);
 
             }
-            foreach(var plane in e.UpdatedPlanes)
+            logger.LogText("Updated Plane info:");
+            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |Heading             |Horizontal Speed            |");
+            logger.LogText("__________________________________________________________________________________________________________________________");
+            foreach (var plane in e.UpdatedPlanes)
             {
                 printPlaneUpdate(plane);
             }
@@ -46,9 +51,7 @@ namespace AirTrafficMonitoringSystem.Display
             string _ID = plane.ID;
             int xPos = plane.XPosition;
             int yPos = plane.YPosition;
-            logger.LogText("New Plane info:");
-            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |");
-            logger.LogText("________________________________________________________________________");
+            
             logger.LogText($"|{_ID, -7}|{alt,-20}|{xPos,-20}|{yPos,-20}|");
             logger.LogText("------------------------------------------------------------------------");
         }
@@ -61,9 +64,7 @@ namespace AirTrafficMonitoringSystem.Display
             int yPos = plane.YPosition;
             double heading = plane.Heading;
             double HorizontalSpeed = plane.HorizontalSpeed;
-            logger.LogText("Updating Plane info:");
-            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |Heading             |Horizontal Speed            |");
-            logger.LogText("__________________________________________________________________________________________________________________________");
+            
             logger.LogText($"|{_ID, -7}|{alt, -20}|{xPos,-20}|{yPos,-20}|{heading,-20}|{HorizontalSpeed,-28}|");
             logger.LogText("--------------------------------------------------------------------------------------------------------------------------");
 

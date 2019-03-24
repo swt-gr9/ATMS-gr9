@@ -31,7 +31,7 @@ namespace AirTrafficMonitoringSystem.Display
                 printNewPlane(plane);
 
             }
-            logger.LogText("Updated Plane info:");
+            logger.LogText("Updating Plane info:");
             logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |Heading             |Horizontal Speed            |");
             logger.LogText("__________________________________________________________________________________________________________________________");
             foreach (var plane in e.UpdatedPlanes)

@@ -59,7 +59,7 @@ namespace AirTrafficMonitoringSystem.Calculator
             }
             else
             {
-                if (deltaY > 0)
+                if (deltaY >= 0)
                 {
                     return 270.0;
                 }

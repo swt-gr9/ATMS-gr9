@@ -35,6 +35,7 @@ namespace ATMS.Test.Unit
         [TestCase(0, -1, 180.0)]
         [TestCase(1, -1, 135)]
         [TestCase(-1, 1, 315)]
+        [TestCase(-1, 0, 270.0)]
         public void TestHeading(int deltaX, int deltaY, double result)
         {
             Plane calcPlane = new Plane {XPosition = deltaX, YPosition = deltaY};

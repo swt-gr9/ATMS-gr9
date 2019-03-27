@@ -50,14 +50,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirTrafficMonitoringSystem.cs" />
     <Compile Include="Calculator\Calculator.cs" />
+    <Compile Include="CollisionLogger\CollisionLogger.cs" />
+    <Compile Include="CollisionLogger\ICollisionLogger.cs" />
     <Compile Include="DataFormatter\DataFormatter.cs" />
     <Compile Include="DataFormatter\IDataFormatter.cs" />
     <Compile Include="Display\ConsoleLogger.cs" />
     <Compile Include="Display\Display.cs" />
     <Compile Include="Display\ILogger.cs" />
-    <Compile Include="Display\StringLogger.cs" />
     <Compile Include="PlaneManager\IPlaneManager.cs" />
     <Compile Include="PlaneManager\PlaneManager.cs" />
     <Compile Include="Plane\Plane.cs" />

@@ -27,7 +27,7 @@ namespace AirTrafficMonitoringSystem.TransponderReceiverClient
             foreach (var data in e.TransponderData)
             {
                 tempPlanes.Add(_dataFormatter.FormatFromString(data));
-                Console.WriteLine(data.ToString());
+                //Console.WriteLine(data.ToString());
             }
 
             if (ItemArrivedReceived != null) ItemArrivedReceived(this, new PlaneDetectedEvent{planes = tempPlanes});

@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorUnitTest.cs" />
+    <Compile Include="CollisionLoggerUnitTest.cs" />
     <Compile Include="DataFormatterTest.cs" />
     <Compile Include="DisplayUnitTest.cs" />
     <Compile Include="PlaneManagerUnitTest.cs" />

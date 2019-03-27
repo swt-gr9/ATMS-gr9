@@ -11,7 +11,11 @@ namespace AirTrafficMonitoringSystem.PlaneManager
     {
         public Plane.Plane New { get; set; }
         public Plane.Plane Old { get; set; }
-       
+
+        public override int GetHashCode()
+        {
+            return (New.ID.GetHashCode() * Old.ID.GetHashCode()) / 500;
+        }
     }
 
     public delegate void PlaneUpdate(object sender, PlaneUpdateEvent e);     

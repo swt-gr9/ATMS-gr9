@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using AirTrafficMonitoringSystem.CollisionLogger;
 using AirTrafficMonitoringSystem.TransponderReceiverClient;
 
 
@@ -16,13 +17,17 @@ namespace AirTrafficMonitoringSystem.PlaneManager
         private List<string> IDTracker;
         private PlaneUpdateEvent Event;
         private ITransponderReceiverClient Client;
+        private ICollisionLogger ColLog;
+        private List<int> CollideTracker;
 
-        public PlaneManager(ITransponderReceiverClient _Client)
+        public PlaneManager(ITransponderReceiverClient _Client, ICollisionLogger log)
         {
             Client = _Client;
+            ColLog = log;
             Client.ItemArrivedReceived += AddPlane;
             CurrentPlanes = new List<Planes>();
             IDTracker = new List<string>();
+            CollideTracker = new List<int>();
         }
         private void AddPlane(object sender, PlaneDetectedEvent e)
         {
@@ -55,29 +60,8 @@ namespace AirTrafficMonitoringSystem.PlaneManager
 
             }
             
-
-            for (int i = 0; i < CurrentPlanes.Count; ++i)
-            {
-                for (int j = 0; j < CurrentPlanes.Count; ++j)
-                {
-                    if (i != j)
-                    {
-                        int deltaX = CurrentPlanes[i].New.XPosition - CurrentPlanes[j].New.XPosition;
-                        int deltaY = CurrentPlanes[i].New.YPosition - CurrentPlanes[j].New.YPosition;
-                        int deltaAlt = CurrentPlanes[i].New.Altitude - CurrentPlanes[j].New.Altitude;
-
-                        if (Calculator.Calculator.AreColliding(deltaX, deltaY, deltaAlt))
-                        {
-                            Planes comPlanes = new Planes {New = CurrentPlanes[i].New, Old = CurrentPlanes[j].New};
-                            if (!Event.CollidingPlanes.Contains(comPlanes))
-                            {
-                                Event.CollidingPlanes.Add(comPlanes);
-                            }
-                        }
-                    }
-                }
-            }
-
+            TestCollidingPlanes();
+            
             PlaneNotify?.Invoke(this, Event);
 
         }
@@ -112,6 +96,34 @@ namespace AirTrafficMonitoringSystem.PlaneManager
 
             CurrentPlanes[index].New.HorizontalSpeed = Calculator.Calculator.GetCurrentSpeed(deltaX, deltaX, time);
             
+        }
+
+        private void TestCollidingPlanes()
+        {
+            for (int i = 0; i < CurrentPlanes.Count; ++i)
+            {
+                for (int j = 0; j < CurrentPlanes.Count; ++j)
+                {
+                    if (i != j)
+                    {
+                        int deltaX = CurrentPlanes[i].New.XPosition - CurrentPlanes[j].New.XPosition;
+                        int deltaY = CurrentPlanes[i].New.YPosition - CurrentPlanes[j].New.YPosition;
+                        int deltaAlt = CurrentPlanes[i].New.Altitude - CurrentPlanes[j].New.Altitude;
+
+                        if (Calculator.Calculator.AreColliding(deltaX, deltaY, deltaAlt))
+                        {
+                            Planes comPlanes = new Planes { New = CurrentPlanes[i].New, Old = CurrentPlanes[j].New };
+
+                            if (!CollideTracker.Contains(comPlanes.GetHashCode()))
+                            {
+                                Event.CollidingPlanes.Add(comPlanes);
+                                CollideTracker.Add(comPlanes.GetHashCode());
+                                ColLog.LogPlanes(comPlanes);
+                            }
+                        }
+                    }
+                }
+            }
         }
         
         public event PlaneUpdate PlaneNotify;

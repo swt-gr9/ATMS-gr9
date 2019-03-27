@@ -15,12 +15,7 @@ namespace ATMS.Test.Unit
         private string format = "yyyyMMddHHmmssfff";
         private string TimeOffset = "201912051105";
 
-        [Test]
-        public void CalculatorThrowsExeption()
-        {
-            Assert.That(() => Calculator.GetCurrentHeading(0,0), Throws.TypeOf<DivideByZeroException>());
-        }
-
+      
         [TestCase(5, 5, "02100", "02500", 17.6777)]
         [TestCase(10, 15, "02000", "02500", 36.0555)]
         [TestCase(-20, -10, "02000", "02100", 223.6068)]
@@ -36,13 +31,11 @@ namespace ATMS.Test.Unit
         }
 
         [TestCase(1,1,45.0)]
-        [TestCase(1,0, 90.0)]
         [TestCase(-1, -1, 225)]
         [TestCase(0, -1, 180.0)]
-        [TestCase(0, 1, 0.0)]
-        [TestCase(-1, 0, 270)]
         [TestCase(1, -1, 135)]
         [TestCase(-1, 1, 315)]
+        [TestCase(-1, 0, 270.0)]
         public void TestHeading(int deltaX, int deltaY, double result)
         {
             Plane calcPlane = new Plane {XPosition = deltaX, YPosition = deltaY};

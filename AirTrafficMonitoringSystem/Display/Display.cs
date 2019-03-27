@@ -22,21 +22,26 @@ namespace AirTrafficMonitoringSystem.Display
 
         private void DisplayPlaneInfo(object sender, PlaneUpdateEvent e)
         {
-            Console.Clear();
-            
+            logger.Clear();
+            logger.LogText("New Plane info:");
+            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |");
+            logger.LogText("________________________________________________________________________");
             foreach (var plane in e.NewPlanes)
             {
                 printNewPlane(plane);
 
             }
-            foreach(var plane in e.UpdatedPlanes)
+            logger.LogText("Updating Plane info:");
+            logger.LogText("|ID     |Altitude            |x-Position          |y-Position          |Heading             |Horizontal Speed            |");
+            logger.LogText("__________________________________________________________________________________________________________________________");
+            foreach (var plane in e.UpdatedPlanes)
             {
                 printPlaneUpdate(plane);
             }
 
             foreach(var plane in e.CollidingPlanes)
             {
-                Console.WriteLine($"{0} colliding with {1}", plane.New.ID, plane.Old.ID);
+                logger.LogText($"{plane.New.ID} colliding with {plane.Old.ID}");
             }
         }
 
@@ -46,11 +51,9 @@ namespace AirTrafficMonitoringSystem.Display
             string _ID = plane.ID;
             int xPos = plane.XPosition;
             int yPos = plane.YPosition;
-
-            logger.LogText("New Plane info:");
-            logger.LogText($"Plane ID: {_ID}");
-            logger.LogText($"Plane Altitude: {alt}");
-            logger.LogText($"Plane Postion, x: {xPos}, y: {yPos}");
+            
+            logger.LogText($"|{_ID, -7}|{alt,-20}|{xPos,-20}|{yPos,-20}|");
+            logger.LogText("------------------------------------------------------------------------");
         }
 
         private void printPlaneUpdate(Plane.Plane plane)
@@ -61,13 +64,10 @@ namespace AirTrafficMonitoringSystem.Display
             int yPos = plane.YPosition;
             double heading = plane.Heading;
             double HorizontalSpeed = plane.HorizontalSpeed;
+            
+            logger.LogText($"|{_ID, -7}|{alt, -20}|{xPos,-20}|{yPos,-20}|{heading,-20}|{HorizontalSpeed,-28}|");
+            logger.LogText("--------------------------------------------------------------------------------------------------------------------------");
 
-            logger.LogText("Updating Plane info");
-            logger.LogText($"Plane ID: {_ID}");
-            logger.LogText($"Plane Altitude: {alt}");
-            logger.LogText($"Plane Position, x: {xPos} , y:{yPos}");
-            logger.LogText($"Plane Heading: {heading}");
-            logger.LogText($"Plane Horizontal speed: {HorizontalSpeed}");
         }
     }
 }
